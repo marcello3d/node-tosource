@@ -1,10 +1,16 @@
 node-tosource
-===========
-Super simple function to convert JavaScript objects back to source code.
+=============
+toSource is a super simple function that converts JavaScript objects back to source code.
+
+Introduction
+------------
+Motivation: JSON doesn't support serializing functions, dates, or regular expressions. I wanted
+a quick and simple way to push trusted data structures with code from Node down to the browser.
+
+This should make it easier to share code and modules between the server and client.
 
 Examples
 --------
-
 The following code:
 
     var toSource = require('tosource')
@@ -14,6 +20,10 @@ The following code:
             'b':3,
             '1':4,
             'if':5,
+            yes:true,
+            no:false,
+            nan:NaN,
+            infinity:Infinity,
             'undefined':undefined,
             'null':null,
             foo: function(bar) {
@@ -35,6 +45,10 @@ Outputs:
         a:2,
         b:3,
         "if":5,
+        yes:true,
+        no:false,
+        nan:NaN,
+        infinity:Infinity,
         "undefined":undefined,
         "null":null,
         foo:function (bar) {
@@ -44,7 +58,31 @@ Outputs:
       /we$/gi,
       new Date(807926400000) ]
 
+
 See [test.js][1] for more examples.
+
+
+Supported Types
+---------------
+* Numbers
+* Strings
+* Array literals
+* object literals
+* function
+* RegExp
+* Date
+* true
+* false
+* undefined
+* null
+* NaN
+* Infinity
+
+Notes
+-----
+* Functions are serialized with func.toString(), no closure properties are serialized.
+* Multiple references to the same object become copies
+* Circular references are encoded as `{$circularReference:1}`
 
 License
 -------
