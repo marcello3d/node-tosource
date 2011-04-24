@@ -8,6 +8,10 @@ console.log(toSource(
         'b':3,
         '1':4,
         'if':5,
+        yes:true,
+        no:false,
+        nan:NaN,
+        infinity:Infinity,
         'undefined':undefined,
         'null':null,
         foo: function(bar) {
