@@ -2,12 +2,11 @@ node-tosource
 ===========
 Super simple function to convert JavaScript objects back to source code.
 
-See [test.js][1] for example usage.
-
 Examples
 --------
 
 The following code:
+
     var toSource = require('tosource')
     console.log(toSource(
         [ 4, 5, 6, "hello", {
@@ -26,8 +25,8 @@ The following code:
         new Date("Wed, 09 Aug 1995 00:00:00 GMT")]
     ))
 
-
 Outputs:
+
     [ 4,
       5,
       6,
@@ -45,11 +44,11 @@ Outputs:
       /we$/gi,
       new Date(807926400000) ]
 
-
+See [test.js][1] for more examples.
 
 License
 -------
-Waiter is open source software under the [zlib license][2].
+toSource is open source software under the [zlib license][2].
 
 [1]: https://github.com/marcello3d/node-tosource/blob/master/test.js
 [2]: https://github.com/marcello3d/node-tosource/blob/master/LICENSE
