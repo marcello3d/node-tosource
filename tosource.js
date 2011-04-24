@@ -6,21 +6,19 @@ module.exports = function(object, filter, indent, startingIndent) {
     function walk(object, filter, indent, currentIndent) {
         var nextIndent = currentIndent + indent
         object = filter ? filter(object) : object
-        if (object === null) return 'null'
+        switch (typeof object) {
+            case 'string':
+                return JSON.stringify(object)
+            case 'boolean':
+            case 'number':
+            case 'function':
+            case 'undefined':
+                return ''+object
+        }
 
+        if (object === null) return 'null'
         if (object instanceof RegExp) return object.toString()
         if (object instanceof Date) return 'new Date('+object.getTime()+')'
-
-        switch (typeof object) {
-            case 'undefined':
-                return 'undefined'
-            case 'string':
-            case 'number':
-            case 'boolean':
-                return JSON.stringify(object)
-            case 'function':
-                return object.toString()
-        }
 
         if (seen.indexOf(object) >= 0) return '{$circularReference:1}'
         seen.push(object)
