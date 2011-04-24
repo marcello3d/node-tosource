@@ -61,7 +61,6 @@ Outputs:
 
 See [test.js][1] for more examples.
 
-
 Supported Types
 ---------------
 * Numbers
@@ -69,8 +68,8 @@ Supported Types
 * Array literals
 * object literals
 * function
-* RegExp
-* Date
+* RegExp literals
+* Dates
 * true
 * false
 * undefined
@@ -80,7 +79,7 @@ Supported Types
 
 Notes
 -----
-* Functions are serialized with func.toString(), no closure properties are serialized.
+* Functions are serialized with `func.toString()`, no closure properties are serialized
 * Multiple references to the same object become copies
 * Circular references are encoded as `{$circularReference:1}`
 
