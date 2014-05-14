@@ -44,3 +44,9 @@ var object = {a:1, b:2}
 object.c = object
 
 console.log(toSource(object))
+
+// Not a circular reference
+foo = {}
+object = {a:foo, b:foo}
+
+console.log(toSource(object))

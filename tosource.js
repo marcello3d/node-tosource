@@ -1,9 +1,9 @@
 /* toSource by Marcello Bastea-Forte - zlib license */
 module.exports = function(object, filter, indent, startingIndent) {
     var seen = []
-    return walk(object, filter, indent === undefined ? '  ' : (indent || ''), startingIndent || '')
+    return walk(object, filter, indent === undefined ? '  ' : (indent || ''), startingIndent || '', seen)
 
-    function walk(object, filter, indent, currentIndent) {
+    function walk(object, filter, indent, currentIndent, seen) {
         var nextIndent = currentIndent + indent
         object = filter ? filter(object) : object
         switch (typeof object) {
@@ -29,12 +29,12 @@ module.exports = function(object, filter, indent, startingIndent) {
 
         if (Array.isArray(object)) {
             return '[' + join(object.map(function(element){
-                return walk(element, filter, indent, nextIndent)
+                return walk(element, filter, indent, nextIndent, seen.slice())
             })) + ']'
         }
         var keys = Object.keys(object)
         return keys.length ? '{' + join(keys.map(function (key) {
-            return (legalKey(key) ? key : JSON.stringify(key)) + ':' + walk(object[key], filter, indent, nextIndent)
+            return (legalKey(key) ? key : JSON.stringify(key)) + ':' + walk(object[key], filter, indent, nextIndent, seen.slice())
         })) + '}' : '{}'
     }
 }
