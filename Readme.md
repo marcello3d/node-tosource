@@ -9,6 +9,11 @@ a quick and simple way to push trusted data structures with code from Node down 
 
 This should make it easier to share code and modules between the server and client.
 
+Installation
+------------
+
+`npm install tosource`
+
 Examples
 --------
 The following code:
