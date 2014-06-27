@@ -1,7 +1,8 @@
 /* toSource by Marcello Bastea-Forte - zlib license */
 module.exports = function(object, filter, indent, startingIndent) {
     var seen = []
-    return walk(object, filter, indent === undefined ? '  ' : (indent || ''), startingIndent || '', seen)
+    return walk(object, filter, indent === undefined ? '  ' : (indent || ''),
+                startingIndent || '', seen)
 
     function walk(object, filter, indent, currentIndent, seen) {
         var nextIndent = currentIndent + indent
@@ -20,11 +21,13 @@ module.exports = function(object, filter, indent, startingIndent) {
         if (object instanceof RegExp) return object.toString()
         if (object instanceof Date) return 'new Date('+object.getTime()+')'
 
-        if (seen.indexOf(object) >= 0) return '{$circularReference:1}'
+        var index = seen.indexOf(object);
+        if (index >= 0) return '{$circularReference:'+index+'}'
         seen.push(object)
 
         function join(elements) {
-            return indent.slice(1) + elements.join(','+(indent&&'\n')+nextIndent) + (indent ? ' ' : '');
+          return indent.slice(1) + elements.join(','+(indent&&'\n')+nextIndent)
+                 + (indent ? ' ' : '');
         }
 
         if (Array.isArray(object)) {
@@ -34,7 +37,8 @@ module.exports = function(object, filter, indent, startingIndent) {
         }
         var keys = Object.keys(object)
         return keys.length ? '{' + join(keys.map(function (key) {
-            return (legalKey(key) ? key : JSON.stringify(key)) + ':' + walk(object[key], filter, indent, nextIndent, seen.slice())
+          return (legalKey(key) ? key : JSON.stringify(key)) + ':'
+                  + walk(object[key], filter, indent, nextIndent, seen.slice());
         })) + '}' : '{}'
     }
 }
