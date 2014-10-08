@@ -11,9 +11,10 @@ module.exports = function(object, filter, indent, startingIndent) {
                 return JSON.stringify(object)
             case 'boolean':
             case 'number':
-            case 'function':
             case 'undefined':
                 return ''+object
+            case 'function':
+                return object.toString()
         }
 
         if (object === null) return 'null'

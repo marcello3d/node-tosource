@@ -12,7 +12,9 @@ This should make it easier to share code and modules between the server and clie
 Installation
 ------------
 
-`npm install tosource`
+```
+npm install tosource
+```
 
 Examples
 --------
