@@ -8,7 +8,7 @@ module.exports = function(object, filter, indent, startingIndent) {
         var seenIndex
 
         object = filter ? filter(object) : object
-        seenIndex = seen.indexOf(object)
+        seenIndex = seen.indexOf(object) + 1
 
         switch (typeof object) {
             case 'string':
@@ -25,7 +25,7 @@ module.exports = function(object, filter, indent, startingIndent) {
         if (object instanceof RegExp) return object.toString()
         if (object instanceof Date) return 'new Date('+object.getTime()+')'
 
-        if (seenIndex >= 0) return '{$circularReference:'+seenIndex+'}'
+        if (seenIndex > 0) return '{$circularReference:'+seenIndex+'}'
         seen.push(object)
 
         function join(elements) {

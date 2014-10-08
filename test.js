@@ -79,7 +79,7 @@ assert.equal(
     toSource(object),
     "{ a:1,\n"+
     "  b:2,\n"+
-    "  c:{$circularReference:0} }"
+    "  c:{$circularReference:1} }"
 )
 
 // Not a circular reference
