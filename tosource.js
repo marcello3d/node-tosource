@@ -6,6 +6,7 @@ module.exports = function(object, filter, indent, startingIndent) {
     function walk(object, filter, indent, currentIndent, seen) {
         var nextIndent = currentIndent + indent
         object = filter ? filter(object) : object
+
         switch (typeof object) {
             case 'string':
                 return JSON.stringify(object)
@@ -21,7 +22,9 @@ module.exports = function(object, filter, indent, startingIndent) {
         if (object instanceof RegExp) return object.toString()
         if (object instanceof Date) return 'new Date('+object.getTime()+')'
 
-        if (seen.indexOf(object) >= 0) return '{$circularReference:1}'
+
+        var seenIndex = seen.indexOf(object) + 1
+        if (seenIndex > 0) return '{$circularReference:'+seenIndex+'}'
         seen.push(object)
 
         function join(elements) {
