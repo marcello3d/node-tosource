@@ -5,10 +5,7 @@ module.exports = function(object, filter, indent, startingIndent) {
 
     function walk(object, filter, indent, currentIndent, seen) {
         var nextIndent = currentIndent + indent
-        var seenIndex
-
         object = filter ? filter(object) : object
-        seenIndex = seen.indexOf(object) + 1
 
         switch (typeof object) {
             case 'string':
@@ -25,6 +22,8 @@ module.exports = function(object, filter, indent, startingIndent) {
         if (object instanceof RegExp) return object.toString()
         if (object instanceof Date) return 'new Date('+object.getTime()+')'
 
+
+        var seenIndex = seen.indexOf(object) + 1
         if (seenIndex > 0) return '{$circularReference:'+seenIndex+'}'
         seen.push(object)
 
