@@ -22,6 +22,8 @@ var v = toSource(
         }
     },
         /we$/gi,
+        new RegExp('/w/e/', 'ig'),
+        /\/w\/e\//mig,
         date,
         new Date("Wed, 09 Aug 1995 00:00:00 GMT")]
 );
@@ -47,6 +49,8 @@ assert.equal(
     "            console.log(\"and bar is \"+bar)\n"+
     "        } },\n"+
     "  /we$/gi,\n"+
+    "  /\\/w\\/e\\//gi,\n"+
+    "  /\\/w\\/e\\//gim,\n"+
     "  new Date("+date.getTime()+"),\n"+
     "  new Date(807926400000) ]"
 )
