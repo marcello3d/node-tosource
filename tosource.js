@@ -18,12 +18,20 @@ module.exports = function (object, filter, indent, startingIndent) {
         return object.toString()
     }
 
-    if (object === null) return 'null'
-    if (object instanceof RegExp) return reString(object)
-    if (object instanceof Date) return 'new Date(' + object.getTime() + ')'
+    if (object === null) {
+      return 'null'
+    }
+    if (object instanceof RegExp) {
+      return stringifyRegExp(object)
+    }
+    if (object instanceof Date) {
+      return 'new Date(' + object.getTime() + ')'
+    }
 
     var seenIndex = seen.indexOf(object) + 1
-    if (seenIndex > 0) return '{$circularReference:' + seenIndex + '}'
+    if (seenIndex > 0) {
+      return '{$circularReference:' + seenIndex + '}'
+    }
     seen.push(object)
 
     function join (elements) {
@@ -48,24 +56,22 @@ function legalKey (string) {
   return /^[a-z_$][0-9a-z_$]*$/gi.test(string) && !KEYWORD_REGEXP.test(string)
 }
 
-/* Node.js 0.10 doesn't escape slashes in re.toString() or re.source
- * when they were not escaped initially.
- * Here we check if the workaround is needed once and for all,
- * then apply it only for non-escaped slashes.
- */
+// Node.js 0.10 doesn't escape slashes in re.toString() or re.source
+// when they were not escaped initially.
+// Here we check if the workaround is needed once and for all,
+// then apply it only for non-escaped slashes.
 var isRegExpEscaped = (new RegExp('/')).source === '\\/'
-function reString (re) {
-  if (!isRegExpEscaped) {
-    var source = re.source.replace(/\//g, function (found, offset, str) {
-      if (offset === 0 || str[offset - 1] !== '\\') {
-        return '\\/'
-      } else {
-        return '/'
-      }
-    })
-    var flags = (re.global && 'g' || '') + (re.ignoreCase && 'i' || '') + (re.multiline && 'm' || '')
-    return '/' + source + '/' + flags
-  } else {
+
+function stringifyRegExp (re) {
+  if (isRegExpEscaped) {
     return re.toString()
   }
+  var source = re.source.replace(/\//g, function (found, offset, str) {
+    if (offset === 0 || str[offset - 1] !== '\\') {
+      return '\\/'
+    }
+    return '/'
+  })
+  var flags = (re.global && 'g' || '') + (re.ignoreCase && 'i' || '') + (re.multiline && 'm' || '')
+  return '/' + source + '/' + flags
 }
