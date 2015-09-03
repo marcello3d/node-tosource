@@ -1,4 +1,4 @@
-# UNRELEASED
+# 1.0.0 (2015-09-03)
 
   * added changelog
   * fixed RegExp escaping of `/` on node 0.10
