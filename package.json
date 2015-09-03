@@ -6,12 +6,21 @@
   "repository": "git://github.com/marcello3d/node-tosource.git",
   "author": "Marcello Bastéa-Forte <marcello@cellosoft.com> (http://marcello.cellosoft.com/)",
   "main": "tosource.js",
-  "keywords": ["source", "tosource", "json", "javascript object", "object"],
+  "keywords": [
+    "source",
+    "tosource",
+    "json",
+    "javascript object",
+    "object"
+  ],
   "dependencies": {},
   "scripts": {
-      "test":"node test.js"
+    "test": "standard && node test.js"
   },
   "engines": {
     "node": ">=0.4.0"
+  },
+  "devDependencies": {
+    "standard": "5.2.1"
   }
 }
