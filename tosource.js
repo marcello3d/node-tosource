@@ -19,7 +19,7 @@ module.exports = function(object, filter, indent, startingIndent) {
         }
 
         if (object === null) return 'null'
-        if (object instanceof RegExp) return object.toString()
+        if (object instanceof RegExp) return reString(object)
         if (object instanceof Date) return 'new Date('+object.getTime()+')'
 
 
@@ -48,3 +48,26 @@ var KEYWORD_REGEXP = /^(abstract|boolean|break|byte|case|catch|char|class|const|
 function legalKey(string) {
     return /^[a-z_$][0-9a-z_$]*$/gi.test(string) && !KEYWORD_REGEXP.test(string)
 }
+
+/* Node.js 0.10 doesn't escape slashes in re.toString() or re.source
+ * when they were not escaped initially.
+ * Here we check if the workaround is needed once and for all,
+ * then apply it only for non-escaped slashes.
+ */
+var isRegExpEscaped = (new RegExp('/')).source == "\\/"
+function reString(re) {
+    if (!isRegExpEscaped) {
+        var source = re.source.replace(/\//g, function(found, offset, str) {
+            if (offset === 0 || str[offset - 1] != "\\") {
+                return "\\/"
+            } else {
+                return "/"
+            }
+        })
+        var flags = (re.global && 'g' || '') + (re.ignoreCase && 'i' || '') + (re.multiline && 'm' || '')
+        return '/' + source + '/' + flags
+    } else {
+        return re.toString()
+    }
+}
+
