@@ -77,6 +77,8 @@ Supported Types
 * Numbers
 * Strings
 * Array literals
+* Set
+* Map
 * object literals
 * function
 * RegExp literals

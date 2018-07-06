@@ -18,7 +18,7 @@
     "test": "standard && node test.js"
   },
   "engines": {
-    "node": ">=0.4.0"
+    "node": ">=4.4.6"
   },
   "devDependencies": {
     "standard": "5.2.1"
