@@ -16,7 +16,10 @@ function walk(object, filter, indent, currentIndent, seen) {
     case 'boolean':
     case 'number':
     case 'undefined':
-      return '' + object
+      if (object === 0 && 1 / object < 0) {//check if negative zero
+        return '-0';
+      }
+      return String(object)
     case 'function':
       return object.toString()
   }

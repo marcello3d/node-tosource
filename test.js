@@ -10,6 +10,7 @@ var v = toSource(
     'b': 3,
     '1': 4,
     'if': 5,
+    negzero: -0,
     yes: true,
     no: false,
     nan: NaN,
@@ -32,7 +33,7 @@ var v = toSource(
 
 assert.equal(
   v,
-  String.raw`[4,5,6,"hello",{"1":4,a:2,b:3,"if":5,yes:true,no:false,nan:NaN,infinity:Infinity,"undefined":undefined,"null":null,foo:function (bar) { console.log('woo! a is ' + a); console.log('and bar is ' + bar); }},/we$/gi,/\/w\/e\//gi,/\/w\/e\//gim,new Date(${date.getTime()}),new Date(807926400000),new Set(),new Set([1,"hello",{}]),new Map(),new Map([[{hello:"world"},"hello"],[1,[1,new Set()]]])]`
+  String.raw`[4,5,6,"hello",{"1":4,a:2,b:3,"if":5,negzero:-0,yes:true,no:false,nan:NaN,infinity:Infinity,"undefined":undefined,"null":null,foo:function (bar) { console.log('woo! a is ' + a); console.log('and bar is ' + bar); }},/we$/gi,/\/w\/e\//gi,/\/w\/e\//gim,new Date(${date.getTime()}),new Date(807926400000),new Set(),new Set([1,"hello",{}]),new Map(),new Map([[{hello:"world"},"hello"],[1,[1,new Set()]]])]`
 )
 
 // Filter parameter (applies to every object recursively before serializing)
