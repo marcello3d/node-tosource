@@ -1,21 +1,34 @@
 /* toSource by Marcello Bastea-Forte - zlib license */
-module.exports = function (object, filter, indent, startingIndent) {
+module.exports = function (object, filter, indent, startingIndent, oneLine = false) {
   var seen = []
-  return walk(object, filter, indent === undefined ? '  ' : (indent || ''), startingIndent || '', seen)
 
-  function walk (object, filter, indent, currentIndent, seen) {
+  const _stringify = oneLine ? (
+    (object) => JSON.stringify(object).replace('\n', '\\n')
+  ) : (
+    (object) => JSON.stringify(object)
+  )
+
+  const _toString = oneLine ? (
+    (object) => object.toString().replace('\n', '\\n')
+  ) : (
+    (object) => object.toString()
+  )
+
+  return walk(object, filter, indent === undefined ? '  ' : (indent || ''), startingIndent || '', seen, oneLine)
+
+  function walk (object, filter, indent, currentIndent, seen, oneLine) {
     var nextIndent = currentIndent + indent
     object = filter ? filter(object) : object
 
     switch (typeof object) {
       case 'string':
-        return JSON.stringify(object)
+        return _stringify(object)
       case 'boolean':
       case 'number':
       case 'undefined':
         return '' + object
       case 'function':
-        return object.toString()
+        return _toString(object)
     }
 
     if (object === null) {
@@ -35,7 +48,7 @@ module.exports = function (object, filter, indent, startingIndent) {
     seen.push(object)
 
     function join (elements) {
-      return indent.slice(1) + elements.join(',' + (indent && '\n') + nextIndent) + (indent ? ' ' : '')
+      return indent.slice(1) + elements.join(',' + (indent && !oneLine && '\n') + nextIndent) + (indent ? ' ' : '')
     }
 
     if (Array.isArray(object)) {
@@ -45,7 +58,7 @@ module.exports = function (object, filter, indent, startingIndent) {
     }
     var keys = Object.keys(object)
     return keys.length ? '{' + join(keys.map(function (key) {
-      return (legalKey(key) ? key : JSON.stringify(key)) + ':' + walk(object[key], filter, indent, nextIndent, seen.slice())
+      return (legalKey(key) ? key : _stringify(key)) + ':' + walk(object[key], filter, indent, nextIndent, seen.slice())
     })) + '}' : '{}'
   }
 }
