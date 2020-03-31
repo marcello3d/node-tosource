@@ -1,3 +1,10 @@
+# 2.0.0-alpha.1 (2020-03-30)
+  * **Breaking change**: Requires Node 10.x
+  * migrate toolchain: TypeScript, prettier, eslint, jest, rollup
+  * export TypeScript types and esm export
+  * add support for `Map`, `Set`, negative zero, sparse arrays
+  * serialize numeric object keys as numbers (e.g. `{'1':2}` becomes `{1:2}`)
+
 # 1.0.0 (2015-09-03)
 
   * added changelog
