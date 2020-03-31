@@ -1,11 +1,13 @@
 {
   "name": "tosource",
   "description": "toSource converts JavaScript objects back to source",
-  "version": "1.0.0",
+  "version": "2.0.0-alpha.1",
   "homepage": "https://github.com/marcello3d/node-tosource",
   "repository": "git://github.com/marcello3d/node-tosource.git",
   "author": "Marcello Bastéa-Forte <marcello@cellosoft.com> (http://marcello.cellosoft.com/)",
-  "main": "tosource.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "typings": "./dist/index.d.ts",
   "keywords": [
     "source",
     "tosource",
@@ -15,12 +17,35 @@
   ],
   "dependencies": {},
   "scripts": {
-    "test": "standard && node test.js"
+    "test": "jest --watch",
+    "test-ci": "jest --coverage",
+    "build": "rollup -c",
+    "lint": "eslint src/**/*.ts",
+    "prepublishOnly": "rm -rf dist/ && npm run build"
   },
   "engines": {
-    "node": ">=0.4.0"
+    "node": ">=10"
   },
   "devDependencies": {
-    "standard": "5.2.1"
+    "@types/jest": "^25.1.4",
+    "@types/node": "13.9.8",
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
+    "codecov": "^3.6.5",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "husky": "^4.2.3",
+    "jest": "^25.1.0",
+    "prettier": "2.0.1",
+    "pretty-quick": "^2.0.1",
+    "rollup": "^2.1.0",
+    "rollup-plugin-typescript2": "^0.26.0",
+    "ts-jest": "^25.2.1",
+    "tslint-config-prettier": "1.18.0",
+    "typescript": "^3.8.3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
   }
 }
