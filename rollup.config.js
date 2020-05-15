@@ -8,10 +8,14 @@ export default {
   output: [
     {
       file: pkg.main,
+      sourcemap: true,
+      sourcemapExcludeSources: true,
       format: 'cjs',
     },
     {
       file: pkg.module,
+      sourcemap: true,
+      sourcemapExcludeSources: true,
       format: 'esm',
     },
   ],
