@@ -7,7 +7,7 @@
   "author": "Marcello Bastéa-Forte <marcello@cellosoft.com> (http://marcello.cellosoft.com/)",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
-  "typings": "./dist/index.d.ts",
+  "typings": "./dist/tosource.d.ts",
   "keywords": [
     "source",
     "tosource",
