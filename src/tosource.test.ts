@@ -11,6 +11,8 @@ describe('toSource', () => {
     }
     const bar = () => 45;
     const v = toSource([
+      0,
+      -0,
       4,
       5,
       6,
@@ -43,7 +45,9 @@ describe('toSource', () => {
     ]);
 
     expect(v).toEqual(
-      `[ 4,
+      `[ 0,
+  -0,
+  4,
   5,
   6,
   "hello",
@@ -77,8 +81,9 @@ describe('toSource', () => {
     );
   });
 
-  it('negative zero', () => {
+  it('zero', () => {
     expect(toSource(-0)).toEqual('-0');
+    expect(toSource(0)).toEqual('0');
   });
 
   it('sparse array', () => {
