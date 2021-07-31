@@ -1,3 +1,6 @@
+# 2.0.0-alpha.3 (2021-07-31)
+  * **Breaking change**: Requires [`Object.is`](https://caniuse.com/mdn-javascript_builtins_object_is) or polyfill
+
 # 2.0.0-alpha.1 (2020-03-30)
   * **Breaking change**: Requires Node 10.x
   * migrate toolchain: TypeScript, prettier, eslint, jest, rollup
