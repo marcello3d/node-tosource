@@ -28,7 +28,7 @@ export default function toSource(
       case 'string':
         return JSON.stringify(object);
       case 'number':
-        if (object === -0) {
+        if (Object.is(object, -0)) {
           return '-0';
         }
         return String(object);
