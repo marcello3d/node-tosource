@@ -87,7 +87,7 @@ describe('toSource', () => {
   });
 
   it('sparse array', () => {
-    expect(toSource([1, , , ], undefined, false)).toEqual('[1,,]');
+    expect(toSource([1, , ,], undefined, false)).toEqual('[1,,]');
   });
 
   it('sparse array 2', () => {
@@ -114,9 +114,7 @@ describe('toSource', () => {
   });
 
   it('handles circular reference', () => {
-    const object = { a: 1, b: 2 };
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
+    const object: any = { a: 1, b: 2 };
     object.c = object;
 
     expect(toSource(object)).toEqual(
