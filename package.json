@@ -5,6 +5,7 @@
   "homepage": "https://github.com/marcello3d/node-tosource",
   "repository": "git://github.com/marcello3d/node-tosource.git",
   "author": "Marcello Bastéa-Forte <marcello@cellosoft.com> (http://marcello.cellosoft.com/)",
+  "license": "Zlib",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
   "typings": "./dist/tosource.d.ts",
